@@ -18,7 +18,7 @@ SerialConnection {
 		}
 	}
 
-	onConnectionOpened: 
+	onConnectionOpened: {
 		// initialize NAND flash applet
 		initializeApplet("nandflash")
 		// erase all memory
