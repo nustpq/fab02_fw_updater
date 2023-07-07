@@ -26,19 +26,24 @@ SerialConnection {
 
         
 		// write files
-		//applet.write(0x000000, "sama5d2_ptc-nandflashboot-app-3.8.60.bin", true)
+		//applet.write(0x000000, "sama5d2_ptc-nandflashboot-app-3.8.7.bin", true)
 		applet.write(0x000000, "boot.bin", true)
 		applet.write(0x060000, "app.bin")
         
                 // initialize boot config applet
 		initializeApplet("bootconfig")
+    applet.writeBootCfg(BootCfg.FUSE,
+                        BCW.fromText("EXT_MEM_BOOT,UART1_IOSET2,JTAG_IOSET1," +
+	                     "SDMMC1_DISABLED,SDMMC0_DISABLED,NFC_IOSET2," +
+	                     "SPI1_DISABLED,SPI0_DISABLED," +
+	                     "QSPI1_DISABLED,QSPI0_DISABLED"))
 
 		// Use BUREG0 as boot configuration word
 		applet.writeBootCfg(BootCfg.BSCR, BSCR.fromText("VALID,BUREG0"))
 
 		// Enable external boot only on NFC IOSET2
 		applet.writeBootCfg(BootCfg.BUREG0,
-	        		BCW.fromText("EXT_MEM_BOOT,UART1_IOSET1,JTAG_IOSET1," +
+	        		BCW.fromText("EXT_MEM_BOOT,UART1_IOSET2,JTAG_IOSET1," +
 	                     "SDMMC1_DISABLED,SDMMC0_DISABLED,NFC_IOSET2," +
 	                     "SPI1_DISABLED,SPI0_DISABLED," +
 	                     "QSPI1_DISABLED,QSPI0_DISABLED"))
